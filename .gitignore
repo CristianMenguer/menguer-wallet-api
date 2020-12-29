@@ -1,0 +1,18 @@
+package-lock.json
+
+yarn.lock
+*.log
+
+# Node build artifacts
+node_modules
+npm-debug.log
+
+# dist
+dist
+
+# Local development
+*.env
+*.dev
+.DS_Store
+
+.markdownlintignore
