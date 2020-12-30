@@ -18,7 +18,7 @@ export const getUsers = async (query = {}): Promise<User[]> => {
     
     try {
         const users = await db.get(COLLECTION, query) as User[]
-        console.log(users)
+        
         return users
     }
     catch (err) {

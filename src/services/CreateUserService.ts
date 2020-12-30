@@ -5,15 +5,17 @@ import User from '../entities/User'
 import AppError from '../errors/AppError'
 
 interface RequestDTO {
-    name: string
+    first_name: string
+    last_name: string
     username: string
     email: string
     password: string
-    usertype: string
+    age: number
+    gender: string
 }
 
 class CreateUserService {
-    public async execute({ name, username, email, password, usertype }: RequestDTO): Promise<User> {
+    public async execute({ first_name, last_name, username, email, password, age, gender }: RequestDTO): Promise<User> {
 
         const users = await getUsers({
             $or: [
@@ -33,11 +35,13 @@ class CreateUserService {
             const hashedPassword = await hash(password, 8)
 
             const user = await createNewUser(new User(
-                name,
+                first_name,
+                last_name,
                 username,
                 email,
                 hashedPassword,
-                usertype
+                age,
+                gender
             ))
 
             return user
