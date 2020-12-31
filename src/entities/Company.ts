@@ -1,6 +1,6 @@
 import Quote from "./Quote"
 
-class Stock {
+class Company {
     _id?: string
     name: string
     code: string
@@ -22,4 +22,4 @@ class Stock {
     }
 }
 
-export default Stock
+export default Company

@@ -107,7 +107,7 @@ export const add = (collectionName: string, item: object) => {
     })
 }
 
-export const update = (collectionName: string, filter = {}, update = {}) => {
+export const update = (collectionName: string, filter = {}, update = {}, options = {}) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
             if (err) {
@@ -117,7 +117,7 @@ export const update = (collectionName: string, filter = {}, update = {}) => {
             }
             const db = client.db(DB_NAME)
             const collection = db.collection(collectionName)
-            collection.findOneAndUpdate(filter, update, { returnOriginal: false }, (err, result) => {
+            collection.findOneAndUpdate(filter, update, { returnOriginal: false, ...options }, (err, result) => {
                 if (err) {
                     console.log(' --- update ERROR --- ')
                     console.log(err)

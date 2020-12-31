@@ -1,8 +1,10 @@
 import express, { Response, Request, NextFunction } from 'express'
 import cors from 'cors'
+import cron from 'node-cron'
 import 'express-async-errors'
 import routes from './routes'
 import AppError from './errors/AppError'
+import updateDatabaseAPIService from './services/UpdateDatabaseAPIService'
 
 const HOSTNAME = '0.0.0.0'
 
@@ -40,4 +42,13 @@ app.use(
 
 app.listen(PORT, HOSTNAME, () => {
     console.log(`> Server started on ${HOSTNAME}:${PORT} 👌`)
+    updateDatabaseAPIService()
 })
+
+// cron.schedule('18,19,20,21,22,23 * * *', () => {
+//     console.log('Running every hour at America/Sao_Paulo timezone')
+//     updateDatabaseAPIService()
+// }, {
+//     scheduled: true,
+//     timezone: "America/Sao_Paulo"
+// })
