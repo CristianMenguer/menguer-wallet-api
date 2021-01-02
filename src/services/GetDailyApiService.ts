@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { sleep } from '../Utils/Sleep'
 
 // https://api-cotacao-b3.labdo.it/
 
@@ -11,9 +12,6 @@ export const apiDaily = async (companyIdAPI: number): Promise<DailyResponse[]> =
             const response = await axios.get(link)
 
             if (!!response) {
-                console.log('response.data')
-                console.log(response.data[0])
-                await sleep(2000)
                 resolve(response.data)
             }
             else
