@@ -8,7 +8,7 @@ const sysInfoApiDaily = async (): Promise<SysInfoResponse> => {
     return new Promise(async (resolve, reject) => {
         try {
             const response = await axios.get(link)
-
+            
             if (!!response)
                 resolve(response.data)
             else

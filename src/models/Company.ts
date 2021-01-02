@@ -3,19 +3,19 @@ import Company from '../entities/Company'
 
 const COLLECTION = 'company'
 
-export const upsertCompany = async (company: Company): Promise<Company> => {
+export const upsertCompany = async (company: Company): Promise<void> => {
     try {
-        const filter = { cd_acao: company.code }
+        const filter = { code: company.code }
         const update = { $set: { ...company } }
         const options = { upsert: true }
         const results = await db.update(COLLECTION, filter, update, options)
-        console.log('results')
-        const result = results as CompanyResponseInsert
-        return result.ops[0]
+        // console.log('results')
+        // console.log(results)
+        //return results
     } catch (err) {
         console.log('Error: > Company.model > createNewCompany:')
         console.log(err)
-        return {} as Company
+        //return {} as Company
     }
 }
 

@@ -2,7 +2,7 @@ import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
 import User from '../entities/User'
-import { getUsers } from '../models/user'
+import { getUsers } from '../models/User'
 import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
 

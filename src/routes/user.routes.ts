@@ -3,7 +3,7 @@ import AppError from '../errors/AppError'
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 import CreateUserService from '../services/CreateUserService'
-import { getUsers } from '../models/user'
+import { getUsers } from '../models/User'
 import { isOnlyLetterLowerCase, isValidEmail } from '../services/ValidateInputs'
 
 const userRoutes = Router()

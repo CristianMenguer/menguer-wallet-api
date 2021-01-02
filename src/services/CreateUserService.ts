@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs'
 
-import { createNewUser, getUsers } from '../models/user'
+import { createNewUser, getUsers } from '../models/User'
 import User from '../entities/User'
 import AppError from '../errors/AppError'
 
