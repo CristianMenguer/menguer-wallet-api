@@ -9,8 +9,8 @@ export const upsertQuote = async (quote: Quote): Promise<void> => {
         const update = { $set: { ...quote } }
         const options = { upsert: true }
         const results = await db.update(COLLECTION, filter, update, options)
-        console.log('results')
-        console.log(results)
+        // console.log('results')
+        // console.log(results)
     } catch (err) {
         console.log('Error: > Quote.model > upsertQuote:')
         console.log(err)
@@ -34,8 +34,8 @@ export const getLastUpdateByCodeStock = async (codeStock: string): Promise<Date 
         {
             $group:
             {
-                _id: "$code_stock",
-                lastDate: { $max: "$dt_pregao" }
+                _id: '$code_stock',
+                lastDate: { $max: '$date' }
             }
         }
     ]
@@ -48,5 +48,18 @@ export const getLastUpdateByCodeStock = async (codeStock: string): Promise<Date 
         console.log('Error: > Quote.model > getLastUpdateByCodeStock:')
         console.log(err)
         return null
+    }
+}
+
+export const getAmountQuotesByCodeStock = async (codeStock: string): Promise<number> => {
+    
+    try {
+        const filter = { code_stock: codeStock }
+        const response = await db.count(COLLECTION, filter)
+        return response as number
+    } catch (err) {
+        console.log('Error: > Quote.model > getAmountQuotesByCodeStock:')
+        console.log(err)
+        return 0
     }
 }

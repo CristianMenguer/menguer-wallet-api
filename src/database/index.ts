@@ -131,7 +131,7 @@ export const update = (collectionName: string, filter = {}, update = {}, options
     })
 }
 
-export const count = ((collectionName: string) => {
+export const count = ((collectionName: string, filter = {}) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
             if (err) {
@@ -141,7 +141,7 @@ export const count = ((collectionName: string) => {
             }
             const db = client.db(DB_NAME)
             const collection = db.collection(collectionName)
-            collection.countDocuments({}, (err, docs) => {
+            collection.countDocuments(filter, (err, docs) => {
                 if (err) {
                     console.log(' --- count ERROR --- ')
                     console.log(err)
