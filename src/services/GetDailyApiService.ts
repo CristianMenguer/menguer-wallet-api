@@ -1,11 +1,10 @@
 import axios from 'axios'
-import { sleep } from '../Utils/Sleep'
 
 // https://api-cotacao-b3.labdo.it/
 
-export const apiDaily = async (companyIdAPI: number): Promise<DailyResponse[]> => {
-    const api = 'https://api-cotacao-b3.labdo.it/api/empresa'
-    const link = `${api}/${companyIdAPI}/cotacoes/02`
+export const apiDaily = async (companyCode: string): Promise<DailyResponse[]> => {
+    const api = 'https://api-cotacao-b3.labdo.it/api/cotacao/cd_acao'
+    const link = `${api}/${companyCode}`
 
     return new Promise(async (resolve, reject) => {
         try {
@@ -22,7 +21,7 @@ export const apiDaily = async (companyIdAPI: number): Promise<DailyResponse[]> =
         } catch (err) {
             console.log(' > GetDailyApiService.ts > apiDaily > Error')
             console.log(err)
-            reject(err)
+            resolve([])
         }
 
     })

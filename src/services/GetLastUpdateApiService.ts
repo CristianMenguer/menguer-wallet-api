@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // https://api-cotacao-b3.labdo.it/
 
-const sysInfoApiDaily = async (): Promise<SysInfoResponse> => {
+const sysInfoApiDaily = async (): Promise<SysInfoResponse | null> => {
     const link = 'https://api-cotacao-b3.labdo.it/api/sysinfo'
     
     return new Promise(async (resolve, reject) => {
@@ -19,7 +19,7 @@ const sysInfoApiDaily = async (): Promise<SysInfoResponse> => {
         } catch (err) {
             console.log(' > GetLastUpdateApiService.ts > sysInfoApiDaily > Error')
             console.log(err)
-            reject(err)
+            resolve(null)
         }
 
     })

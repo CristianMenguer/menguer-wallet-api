@@ -1,6 +1,5 @@
 class Quote {
     _id?: string
-    id_api: number
     id_company: number
     code_stock: string
     open: number
@@ -8,12 +7,13 @@ class Quote {
     max: number
     min: number
     volume: number
-    dt_pregao: Date
+    date: Date
+    dividend: number
+    coefficient: number
     created_at?: Date
     updated_at?: Date
 
-	constructor(id_api: number, id_company: number, code_stock: string, open: number, close: number, max: number, min: number, volume: number, dt_pregao: Date) {
-        this.id_api = id_api
+	constructor(id_company: number, code_stock: string, open: number, close: number, max: number, min: number, volume: number, date: Date, dividend: number, coefficient: number) {
         this.id_company = id_company
         this.code_stock = code_stock
         this.open = open
@@ -21,7 +21,9 @@ class Quote {
         this.max = max
         this.min = min
         this.volume = volume
-        this.dt_pregao = dt_pregao
+        this.date = date
+        this.dividend = dividend
+        this.coefficient = coefficient
         this.created_at = new Date()
         this.updated_at = new Date()
     }

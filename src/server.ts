@@ -4,7 +4,7 @@ import cron from 'node-cron'
 import 'express-async-errors'
 import routes from './routes'
 import AppError from './errors/AppError'
-import updateDatabaseAPIService from './services/UpdateDatabaseAPIService'
+import updateDatabaseAPIService, { firstInsertion } from './services/UpdateDatabaseAPIService'
 
 const HOSTNAME = '0.0.0.0'
 
@@ -42,7 +42,7 @@ app.use(
 
 app.listen(PORT, HOSTNAME, () => {
     console.log(`> Server started on ${HOSTNAME}:${PORT} 👌`)
-    updateDatabaseAPIService()
+    firstInsertion()
 })
 
 // cron.schedule('18,19,20,21,22,23 * * *', () => {
