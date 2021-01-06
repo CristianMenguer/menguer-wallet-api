@@ -1,11 +1,13 @@
 import { Router, Request, Response } from 'express'
 
 import userRoutes from './user.routes'
+import quoteRoutes from './quote.routes'
 import sessionRoutes from './session.routes'
 
 const routes = Router()
 
 routes.use('/users', userRoutes)
+routes.use('/quotes', quoteRoutes)
 routes.use('/session', sessionRoutes)
 
 routes.get('/', (request: Request, response: Response) => {
