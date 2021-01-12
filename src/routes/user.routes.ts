@@ -11,11 +11,11 @@ const userRoutes = Router()
 
 userRoutes.post('/', async (request: Request, response: Response) => {
 
-    const { first_name, last_name, username, email, password, age, gender } = request.body
+    const { fullname, username, email, password } = request.body
 
     console.log(request.body)
 
-    if (!first_name || !last_name || !username || !email || !password || !age || !gender)
+    if (!fullname || !username || !email || !password)
         throw new AppError('It is missing some parameters!')
     //
     if (!isOnlyLetterLowerCase(username))
@@ -29,13 +29,10 @@ userRoutes.post('/', async (request: Request, response: Response) => {
 
     try {
         const user = await createUser.execute({
-            first_name,
-            last_name,
+            fullname,
             username,
             email,
             password,
-            age,
-            gender
         })
 
         return response.json(user)

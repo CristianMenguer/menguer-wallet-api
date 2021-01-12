@@ -17,7 +17,9 @@ app.use((request: Request, response: Response, _next: NextFunction) => {
     _next()
 })
 
-app.use(cors())
+app.use(cors({
+    origin: '*'
+}))
 
 app.use(express.json())
 

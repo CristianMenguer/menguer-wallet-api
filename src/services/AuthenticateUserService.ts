@@ -7,7 +7,7 @@ import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
 
 interface RequestDTO {
-    username: string
+    email: string
     password: string
 }
 
@@ -18,26 +18,26 @@ interface ResponseDTO {
 
 class AuthenticateUserService {
 
-    public async execute({ username, password }: RequestDTO): Promise<ResponseDTO> {
+    public async execute({ email, password }: RequestDTO): Promise<ResponseDTO> {
 
-        if (!username)
-            throw new AppError('Username is empty!', 401)
+        if (!email)
+            throw new AppError('E-mail is empty!', 401)
 
         if (!password)
             throw new AppError('Password is empty!', 401)
 
-        const users = await getUsers({ username })
-
+        const users = await getUsers({ email })
+        
         if (!users.length) {
             throw new AppError('User not found!', 401)
         }
 
-        const userByUsername = users[0]
+        const userByEmail = users[0]
 
         let passwordMatched = false
 
-        if (userByUsername.password)
-            passwordMatched = await compare(password, userByUsername.password)
+        if (userByEmail.password)
+            passwordMatched = await compare(password, userByEmail.password)
 
         if (!passwordMatched) {
             throw new AppError('Incorrect username/password combination!', 401)
@@ -45,15 +45,15 @@ class AuthenticateUserService {
 
         const { secret, expiresIn } = authConfig.jwt
         
-        userByUsername._id += ''
+        userByEmail._id += ''
 
-        const token = sign({ username }, secret, {
-            subject: userByUsername._id,
+        const token = sign({ email }, secret, {
+            subject: userByEmail._id,
             expiresIn
         })
 
         return {
-            user: userByUsername,
+            user: userByEmail,
             token
         }
     }
