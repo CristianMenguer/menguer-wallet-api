@@ -15,18 +15,19 @@ quoteRoutes.get('/:input', async (request: Request, response: Response) => {
 
     const { input } = request.params
     const { date, dateFrom, dateTo } = request.query
+    console.log(request.query)
 
     if (!isValidStockCode(input))
         throw new AppError('Invalid Stock Code!')
     //
-    if (!!date && isNumber(date.toString()) && !isValidInputDate(date.toString()))
+    if (!!date && !isValidInputDate(date.toString()))
         throw new AppError('Date has a wrong format(yyyy-mm-dd)!', 400)
     //
-    if (!!dateFrom && isNumber(dateFrom.toString()) && !isValidInputDate(dateFrom.toString()))
-        throw new AppError('Date "From" has a wrong format(yyyy-mm-dd)!', 400)
+    if (!!dateFrom && !isValidInputDate(dateFrom.toString()))
+        throw new AppError('Date From has a wrong format(yyyy-mm-dd)!', 400)
     //
-    if (!!dateTo && isNumber(dateTo.toString()) && !isValidInputDate(dateTo.toString()))
-        throw new AppError('Date "To" has a wrong format(yyyy-mm-dd)!', 400)
+    if (!!dateTo && !isValidInputDate(dateTo.toString()))
+        throw new AppError('Date To has a wrong format(yyyy-mm-dd)!', 400)
     //
     let quotes
     //
