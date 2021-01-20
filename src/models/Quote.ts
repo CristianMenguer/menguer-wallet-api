@@ -52,6 +52,32 @@ export const getLastUpdateByCodeStock = async (codeStock: string): Promise<Date 
     }
 }
 
+export const getLastQuoteForEachCodeStock = async (): Promise<LastUpdateResponse[]> => {
+
+    const LOOKUP = [
+        {
+            $group:
+            {
+                _id: '$code_stock',
+                lastDate: { $max: '$date' }
+            }
+        }
+    ]
+
+    try {
+        // @ts-ignore
+        const response = await db.aggregate(COLLECTION, LOOKUP) as LastUpdateResponse[]
+        if (!!response && !!response.length)
+            return response
+        //
+        return []
+    } catch (err) {
+        console.log('Error: > Quote.model > getLastQuoteForEachCodeStock:')
+        console.log(err)
+        return []
+    }
+}
+
 export const getLastQuoteByCodeStock = async (codeStock: string): Promise<Quote | null> => {
 
     const date = await getLastUpdateByCodeStock(codeStock)
@@ -80,6 +106,20 @@ interface ParamDates {
 export const getQuoteByCodeStockAndDate = async (params: ParamDates): Promise<Quote[]> => {
 
     const { codeStock, date, dateFrom, dateTo } = params
+    let dateToQuery = dateTo
+    let dateFromQuery = dateFrom
+    //
+    if (dateToQuery === '') {
+        const tempDate = new Date()
+        tempDate.setFullYear(tempDate.getFullYear() + 1)
+        dateToQuery = tempDate.getFullYear() + '12-31'
+    }
+    //
+    if (dateFromQuery === '') {
+        const tempDate = new Date()
+        tempDate.setFullYear(tempDate.getFullYear() - 1)
+        dateFromQuery = tempDate.getFullYear() + '01-01'
+    }
 
     let filter
 
@@ -89,9 +129,9 @@ export const getQuoteByCodeStockAndDate = async (params: ParamDates): Promise<Qu
         filter = { $and: [{ code_stock: codeStock }, { date: pregaoToDate(parseInt(dateFormatted)) }] }
     }
     else
-        if (!!dateFrom && dateFrom !== '' && !!dateTo && dateTo !== '') {
-            const dateFromFormatted = dateFrom.replace(/\D+/g, '')
-            const dateToFormatted = dateTo.replace(/\D+/g, '')
+        if (!!dateFromQuery && dateFromQuery !== '' && !!dateToQuery && dateToQuery !== '') {
+            const dateFromFormatted = dateFromQuery.replace(/\D+/g, '')
+            const dateToFormatted = dateToQuery.replace(/\D+/g, '')
 
             filter = {
                 $and:

@@ -22,13 +22,27 @@ export const upsertCompany = async (company: Company): Promise<void> => {
 export const getCompanies = async (query = {}): Promise<Company[]> => {
     
     try {
-        const Companys = await db.get(COLLECTION, query) as Company[]
+        const companies = await db.get(COLLECTION, query) as Company[]
         
-        return Companys
+        return companies
     }
     catch (err) {
-        console.log('Error: > Company.model > getCompanys:')
+        console.log('Error: > Company.model > getCompanies:')
         console.log(err)
         return []
+    }
+}
+
+export const getNumberCompanies = async (): Promise<number> => {
+    
+    try {
+        const total = await db.count(COLLECTION) as number
+        
+        return total
+    }
+    catch (err) {
+        console.log('Error: > Company.model > getCompanies:')
+        console.log(err)
+        return 0
     }
 }

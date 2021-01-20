@@ -5,11 +5,21 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 import CreateUserService from '../services/CreateUserService'
 import { getUsers } from '../models/User'
 import { isNumber, isOnlyLetterLowerCase, isValidEmail, isValidInputDate, isValidStockCode } from '../Utils/ValidateInputs'
-import { getLastQuoteByCodeStock, getQuoteByCodeStockAndDate } from '../models/Quote'
+import { getLastQuoteByCodeStock, getLastQuoteForEachCodeStock, getQuoteByCodeStockAndDate } from '../models/Quote'
 
 const quoteRoutes = Router()
 
 //quoteRoutes.use(ensureAuthenticated)
+
+quoteRoutes.get('/allLastQuotes', async (request: Request, response: Response) => {
+    const quotes = await getLastQuoteForEachCodeStock()
+    //
+    if (!!!quotes)
+        throw new AppError('Quote not found!', 404)
+    //
+
+    return response.json(quotes)
+})
 
 quoteRoutes.get('/:input', async (request: Request, response: Response) => {
 
