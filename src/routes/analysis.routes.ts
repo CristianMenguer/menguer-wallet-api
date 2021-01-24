@@ -1,32 +1,20 @@
 import { Router, Request, Response } from 'express'
-import AppError from '../errors/AppError'
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
-import { isNumber, isOnlyLetterLowerCase, isValidEmail, isValidInputDate, isValidStockCode } from '../Utils/ValidateInputs'
-import { getLastQuoteByCodeStock, getQuoteByCodeStockAndDate } from '../models/Quote'
+import { getRecommendations } from '../models/Recommendation'
 
-const quoteRoutes = Router()
+const analysisRoutes = Router()
 
-//quoteRoutes.use(ensureAuthenticated)
+//analysisRoutes.use(ensureAuthenticated)
 
-quoteRoutes.get('/:input', async (request: Request, response: Response) => {
+analysisRoutes.get('/', async (request: Request, response: Response) => {
 
-    const { input } = request.params
-    const { strategy } = request.query
-    
-    console.log(request.query)
+    const dateFilter = new Date()
+    dateFilter.setMonth(dateFilter.getMonth() - 1)
+    const recommendations = await getRecommendations({date: {$gte: dateFilter}})
 
-    if (!isValidStockCode(input))
-        throw new AppError('Invalid Stock Code!')
-    //
-    let quotes = await getLastQuoteByCodeStock(input)
-    //
-    if (!!!quotes)
-        throw new AppError('Quote not found!', 404)
-    //
-
-    return response.json(quotes)
+    return response.json(recommendations)
 
 })
 
-export default quoteRoutes
+export default analysisRoutes
