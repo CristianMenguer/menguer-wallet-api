@@ -1,3 +1,4 @@
+//Interface used in the whole app to the Response of the API for companies
 interface CompanyResponse {
     id: number
     cd_acao_rdz: string

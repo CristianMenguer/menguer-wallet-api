@@ -8,7 +8,9 @@ import { isOnlyLetterLowerCase, isValidEmail } from '../Utils/ValidateInputs'
 
 const userRoutes = Router()
 
+// All the routes for users are handled here.
 
+// This route receives an user, validates an inserts it to the Database
 userRoutes.post('/', async (request: Request, response: Response) => {
 
     const { fullname, username, email, password } = request.body
@@ -43,8 +45,11 @@ userRoutes.post('/', async (request: Request, response: Response) => {
     }
 })
 
+// This line enables the need of authentication
+// All the routes from here will need to have a valid token to access
 userRoutes.use(ensureAuthenticated)
 
+// This route returns all the users
 userRoutes.get('/', async (request: Request, response: Response) => {
 
     const users = await getUsers()
@@ -53,6 +58,8 @@ userRoutes.get('/', async (request: Request, response: Response) => {
 
 })
 
+// This route receives and input, that can be an username or e-mail, 
+// and returns the user, if found
 userRoutes.get('/:input', async (request: Request, response: Response) => {
 
     const { input } = request.params

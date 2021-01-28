@@ -6,6 +6,11 @@ import { getUsers } from '../models/User'
 import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
 
+
+/**
+ * This class is exclusively used to validate a user credentials.
+ * WHen it is valid, returns a valid token
+ */
 interface RequestDTO {
     email: string
     password: string

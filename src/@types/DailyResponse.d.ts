@@ -1,3 +1,4 @@
+//Interface used in the whole app to the Response of the API for Daily quotes
 interface DailyResponse {
     id: number
     dt_pregao: number

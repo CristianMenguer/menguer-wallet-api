@@ -1,3 +1,4 @@
+// Class Recommendation and its constructor defined here
 class Recommendation {
     _id?: string
     id_strategy: number

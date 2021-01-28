@@ -3,6 +3,8 @@ import Company from '../entities/Company'
 
 const COLLECTION = 'company'
 
+// This function receives a Company object and insert it to the Database.
+// If it already exists, it is updated
 export const upsertCompany = async (company: Company): Promise<void> => {
     try {
         const filter = { code: company.code }
@@ -19,6 +21,7 @@ export const upsertCompany = async (company: Company): Promise<void> => {
     }
 }
 
+// This function returns all the Company Objects from the Database
 export const getCompanies = async (query = {}): Promise<Company[]> => {
     
     try {

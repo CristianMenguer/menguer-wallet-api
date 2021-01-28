@@ -4,6 +4,11 @@ import { createNewUser, getUsers } from '../models/User'
 import User from '../entities/User'
 import AppError from '../errors/AppError'
 
+/**
+ * This class is exclusively used to create an user in the Database.
+ * It receives the necessary data and insert it. 
+ */
+
 interface RequestDTO {
     fullname: string
     username: string

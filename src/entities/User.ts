@@ -1,3 +1,4 @@
+// Class User and its constructor defined here
 class User {
     _id?: string
     fullname: string

@@ -1,19 +1,30 @@
 import { MongoClient } from 'mongodb'
 import { config } from 'dotenv'
 
+/**
+ * This is the file that connects to the MongoDB Database, all the connections 
+ * are in this file.
+ */
+
+
+// This method is necessary to read the environment variables
 config()
 
+// Here the enviroment variables are read
 const uri = process.env.MONGO_URI as string
 const DB_NAME = process.env.MONGO_DB_NAME as string
 const MONGO_OPTIONS = {
     useUnifiedTopology: true, useNewUrlParser: true
 }
 
+// Method used only for tests, to check if the variables were read correctly
 export const info = () => {
     console.log('uri: ' + uri)
-    console.log('db_name: ' + DB_NAME)    
+    console.log('db_name: ' + DB_NAME)
 }
 
+// Function that use the method Aggregate from MongoDB, 
+// receiving a Pipeline and sending it as a parameter
 export const aggregate = (collectionName: string, pipeline = [], query = {}) => {
 
     return new Promise((resolve, reject) => {
@@ -42,6 +53,7 @@ export const aggregate = (collectionName: string, pipeline = [], query = {}) => 
     })
 }
 
+// Function that creates a Pipeline properly to be sent
 const createPipeline = (pipeline: {}[], query = {}): {}[] => {
     const queryArr = Object.entries(query)
 
@@ -58,6 +70,8 @@ const createPipeline = (pipeline: {}[], query = {}): {}[] => {
     return pipeline
 }
 
+// Function that use the method find from MongoDB, 
+// sending a query as parameter if sent to the function
 export const get = (collectionName: string, query = {}): Promise<Object[]> => {
 
     return new Promise((resolve, reject) => {
@@ -84,6 +98,8 @@ export const get = (collectionName: string, query = {}): Promise<Object[]> => {
     })
 }
 
+// Function that use the method insertOne from MongoDB, 
+// adding a new object to the Database
 export const add = (collectionName: string, item: object) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
@@ -107,6 +123,8 @@ export const add = (collectionName: string, item: object) => {
     })
 }
 
+// Function that use the method findOneAndUpdate from MongoDB, 
+// updating an object in the Database
 export const update = (collectionName: string, filter = {}, update = {}, options = {}) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
@@ -131,6 +149,8 @@ export const update = (collectionName: string, filter = {}, update = {}, options
     })
 }
 
+// Function that use the method countDocuments from MongoDB, 
+// returning the total of documents in a specific collection
 export const count = ((collectionName: string, filter = {}) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {

@@ -1,3 +1,4 @@
+// Class of Errors created to handle errors of the application
 class AppError {
 
     public readonly message: string

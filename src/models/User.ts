@@ -3,6 +3,7 @@ import User from '../entities/User'
 
 const COLLECTION = 'user'
 
+// This function receives a User object and insert it to the Database
 export const createNewUser = async (user: User): Promise<User> => {
     try {
         const results = await db.add(COLLECTION, user) as UserResponseInsert
@@ -14,6 +15,7 @@ export const createNewUser = async (user: User): Promise<User> => {
     }
 }
 
+// This function returns all the Users from the Database
 export const getUsers = async (query = {}): Promise<User[]> => {
     
     try {

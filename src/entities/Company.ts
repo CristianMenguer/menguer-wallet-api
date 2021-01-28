@@ -1,5 +1,7 @@
 import Quote from "./Quote"
 
+// Class Company and its constructor defined here
+
 class Company {
     _id?: string
     id_api: number

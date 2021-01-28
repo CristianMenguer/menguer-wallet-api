@@ -2,15 +2,18 @@ import { Router, Request, Response } from 'express'
 import AppError from '../errors/AppError'
 
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
-import CreateUserService from '../services/CreateUserService'
-import { getUsers } from '../models/User'
-import { isNumber, isOnlyLetterLowerCase, isValidEmail, isValidInputDate, isValidStockCode } from '../Utils/ValidateInputs'
+import { isValidInputDate, isValidStockCode } from '../Utils/ValidateInputs'
 import { getLastQuoteByCodeStock, getLastQuoteForEachCodeStock, getQuoteByCodeStockAndDate } from '../models/Quote'
 
 const quoteRoutes = Router()
 
-//quoteRoutes.use(ensureAuthenticated)
+// All the routes for quotes are handled here.
 
+// This line enables the need of authentication
+// All the routes from here will need to have a valid token to access
+quoteRoutes.use(ensureAuthenticated)
+
+// This route returns all the different stocks and their las quotes
 quoteRoutes.get('/allLastQuotes', async (request: Request, response: Response) => {
     const quotes = await getLastQuoteForEachCodeStock()
     //
@@ -21,6 +24,8 @@ quoteRoutes.get('/allLastQuotes', async (request: Request, response: Response) =
     return response.json(quotes)
 })
 
+// This route receives a stock code and some dates as parameters.
+// It will return all the quotes within the given parameters.
 quoteRoutes.get('/:input', async (request: Request, response: Response) => {
 
     const { input } = request.params

@@ -8,8 +8,13 @@ import { isOnlyLetterLowerCase, isValidEmail } from '../Utils/ValidateInputs'
 
 const companyRoutes = Router()
 
-//companyRoutes.use(ensureAuthenticated)
+// All the routes for companies are handled here.
 
+// This line enables the need of authentication
+// All the routes from here will need to have a valid token to access
+companyRoutes.use(ensureAuthenticated)
+
+// This route returns the total quantity of companies in the Database
 companyRoutes.get('/total', async (request: Request, response: Response) => {
 
     const users = await getNumberCompanies()
@@ -18,6 +23,7 @@ companyRoutes.get('/total', async (request: Request, response: Response) => {
 
 })
 
+// This route returns all the companies in the Database
 companyRoutes.get('/', async (request: Request, response: Response) => {
 
     const users = await getCompanies()

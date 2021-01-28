@@ -1,3 +1,4 @@
+//Interface used in the whole app to the Response of the API for Historical Quotes
 interface HistoricalResponse {
     '1. open': string
     '2. high': string

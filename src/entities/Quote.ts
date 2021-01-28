@@ -1,3 +1,5 @@
+// Class Quote and its constructor defined here
+
 class Quote {
     _id?: string
     id_company: number
