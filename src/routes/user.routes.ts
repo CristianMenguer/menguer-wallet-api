@@ -26,6 +26,19 @@ userRoutes.post('/', async (request: Request, response: Response) => {
     if (!isValidEmail(email))
         throw new AppError('Email is invalid!')
     //
+    const users = await getUsers({
+        $or: [
+            {
+                username
+            },
+            {
+                email
+            }
+        ]
+    })
+
+    if (users.length)
+        throw new AppError('Username or email has already been registered!')
 
     const createUser = new CreateUserService()
 

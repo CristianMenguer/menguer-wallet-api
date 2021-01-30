@@ -36,6 +36,7 @@ export const getCompanies = async (query = {}): Promise<Company[]> => {
     }
 }
 
+// This function returns the quantity os Company documents in the Database
 export const getNumberCompanies = async (): Promise<number> => {
     
     try {

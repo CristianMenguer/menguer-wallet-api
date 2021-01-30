@@ -31,6 +31,7 @@ app.use(
     (err: Error, request: Request, response: Response, _next: NextFunction) => {
 
         if (err instanceof AppError) {
+            console.log(`> Error: ${err.message}`)
             return response.status(err.statusCode).json({
                 status: 'error',
                 message: err.message
