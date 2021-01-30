@@ -15,7 +15,7 @@ userRoutes.post('/', async (request: Request, response: Response) => {
 
     const { fullname, username, email, password } = request.body
 
-    console.log(request.body)
+    //console.log(request.body)
 
     if (!fullname || !username || !email || !password)
         throw new AppError('It is missing some parameters!')

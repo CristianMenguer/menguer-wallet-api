@@ -30,7 +30,7 @@ quoteRoutes.get('/:input', async (request: Request, response: Response) => {
 
     const { input } = request.params
     const { date, dateFrom, dateTo } = request.query
-    console.log(request.query)
+    //console.log(request.query)
 
     if (!isValidStockCode(input))
         throw new AppError('Invalid Stock Code!')
